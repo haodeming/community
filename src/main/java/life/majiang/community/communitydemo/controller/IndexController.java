@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class InderController {
+public class IndexController {
 
     @Autowired
     private UserMapper userMapper;
