@@ -67,6 +67,13 @@
             <version>1.4.199</version>
         </dependency>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>io.github.qsy7.java.dependencies</groupId>
+            <artifactId>lombok</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
 
 
     </dependencies>

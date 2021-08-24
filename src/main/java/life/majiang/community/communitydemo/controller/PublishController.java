@@ -5,7 +5,6 @@ import life.majiang.community.communitydemo.mapper.UserMapper;
 import life.majiang.community.communitydemo.model.Question;
 import life.majiang.community.communitydemo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,14 +50,16 @@ public class PublishController {
         }
         Cookie[] cookies = request.getCookies();
         User user = null;
-        for (Cookie cookie : cookies){
-            if(cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                  user = userMapper.findByToken(token);
-                if(user != null){
-                    request.getSession().setAttribute("user",user);
+        if(cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
 
