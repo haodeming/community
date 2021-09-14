@@ -4,6 +4,7 @@ import life.majiang.community.communitydemo.dto.PaginationDTO;
 import life.majiang.community.communitydemo.dto.QuestionDTO;
 import life.majiang.community.communitydemo.exception.CustomizeErrorCode;
 import life.majiang.community.communitydemo.exception.CustomizeException;
+import life.majiang.community.communitydemo.mapper.QuestionExtMapper;
 import life.majiang.community.communitydemo.mapper.QuestionMapper;
 import life.majiang.community.communitydemo.mapper.UserMapper;
 import life.majiang.community.communitydemo.model.Question;
@@ -12,6 +13,7 @@ import life.majiang.community.communitydemo.model.User;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     //问题表级联用户表
     public PaginationDTO list(Integer page,Integer size) {
@@ -145,5 +150,13 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+
     }
 }
